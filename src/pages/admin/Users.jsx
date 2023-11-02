@@ -15,7 +15,12 @@ import toastifyConfig from "../../utils/toastify";
 function Users() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-  const [loadingRows, setLoadingRows] = useState({});
+  //   const [loadingRows, setLoadingRows] = useState({});
+  const [loadingRows, setLoadingRows] = useState({
+    revoke: {},
+    delete: {},
+    authorize: {},
+  });
   const [dataFetched, setDataFetched] = useState(false);
   const {
     users,
@@ -26,33 +31,39 @@ function Users() {
   } = useSelector((state) => state.users);
   const handleAuthorization = (id, action) => {
     const newLoadingRows = { ...loadingRows };
-    newLoadingRows[id] = true;
+    newLoadingRows[action][id] = true;
     setLoadingRows(newLoadingRows);
     setLoading(true);
-    if (action === "authorize")
+
+    if (action === "authorize") {
       dispatch(authorizeUser(id)).then(() => {
         setLoading(false);
-        newLoadingRows[id] = false;
+        newLoadingRows[action][id] = false;
         setLoadingRows(newLoadingRows);
       });
-    if (action === "revoke")
+    }
+    if (action === "revoke") {
       dispatch(revokeUser(id)).then(() => {
         setLoading(false);
-        newLoadingRows[id] = false;
+        newLoadingRows[action][id] = false;
         setLoadingRows(newLoadingRows);
       });
+    }
   };
+
   const handleDelete = (id) => {
     const newLoadingRows = { ...loadingRows };
-    newLoadingRows[id] = true;
+    newLoadingRows.delete[id] = true;
     setLoadingRows(newLoadingRows);
     setLoading(true);
+
     dispatch(deleteUser(id)).then(() => {
       setLoading(false);
-      newLoadingRows[id] = false;
+      newLoadingRows.delete[id] = false;
       setLoadingRows(newLoadingRows);
     });
   };
+
   const columns = [
     { name: "Name", selector: (row) => row.name },
     { name: "Email", selector: (row) => row.email },
@@ -84,8 +95,7 @@ function Users() {
                 onClick={() => handleAuthorization(row._id, "revoke")}
                 className="bg-orange-500 w-20 text-xs rounded-md text-white px-2 py-2"
               >
-                {loadingRows[row._id] ? "Revoking..." : "Revoke"}
-                {/* Revoke */}
+                {loadingRows.revoke[row._id] ? "Revoking..." : "Revoke"}
               </button>
             ) : (
               <button
@@ -93,8 +103,9 @@ function Users() {
                 onClick={() => handleAuthorization(row._id, "authorize")}
                 className="bg-green-500 w-20 text-xs rounded-md text-white px-2 py-2"
               >
-                {loadingRows[row._id] ? "Authorizing..." : "Authorize"}
-                {/* Authorize */}
+                {loadingRows.authorize[row._id]
+                  ? "Authorizing..."
+                  : "Authorize"}
               </button>
             )}
           </div>
@@ -103,7 +114,7 @@ function Users() {
             onClick={() => handleDelete(row._id)}
             className="bg-red-500 w-20 text-xs rounded-md text-white px-2 py-2"
           >
-            {loadingRows[row._id] ? "Deleting..." : "Delete"}
+            {loadingRows.delete[row._id] ? "Deleting..." : "Delete"}
           </button>
         </div>
       ),
@@ -114,11 +125,9 @@ function Users() {
       dispatch(getAllUsers());
       setDataFetched(true);
     }
-
     if (usersIsError) {
       toast.error(usersErrorMessage, toastifyConfig);
     }
-
     const resetTimeout = setTimeout(() => {
       dispatch(reset());
     }, 500);
