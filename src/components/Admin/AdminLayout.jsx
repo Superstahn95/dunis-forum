@@ -25,6 +25,7 @@ function AdminLayout() {
     }
   }
   useEffect(() => {
+    handleResize();
     if (typeof window != undefined) {
       addEventListener("resize", handleResize);
     }
