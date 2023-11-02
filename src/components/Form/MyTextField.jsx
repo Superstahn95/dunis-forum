@@ -12,7 +12,7 @@ function MyTextInput({ label, directive, ...props }) {
         {...props}
         className="border border-gray-500 outline-none p-2  rounded-md"
       />
-      <p className="text-sm dark:text-white">{directive}</p>
+      <p className="text-sm ">{directive}</p>
       {meta.touched && meta.error ? (
         <div className="text-red-500  text-xs">{meta.error}</div>
       ) : null}

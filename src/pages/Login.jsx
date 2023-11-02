@@ -5,11 +5,32 @@ import { Form, Formik } from "formik";
 import MyTextInput from "../components/Form/MyTextField";
 import * as Yup from "Yup";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate, Navigate } from "react-router-dom";
+import { login, reset } from "../features/auth/authSlice";
+import toastifyConfig from "../utils/toastify";
+import { Bars } from "react-loader-spinner";
+import FeatureLoader from "../components/FeatureLoader";
 function Login() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { user, isSuccess, isLoading, isError, message, isAuthenticated } =
+    useSelector((state) => state.auth);
   const initialData = {
     email: "",
     password: "",
   };
+  useEffect(() => {
+    if (isError) {
+      toast.error(message, toastifyConfig);
+    }
+    if (isSuccess || user) {
+      navigate("/", { replace: true });
+    }
+    dispatch(reset());
+  }, [isError, isSuccess, message, user, dispatch, navigate]);
   return (
     <>
       <Navbar />
@@ -56,10 +77,12 @@ function Login() {
                   >
                     Sign In
                   </button>
+                  {isLoading && <FeatureLoader text="Signing In" />}
                 </div>
               </Form>
             </Formik>
           </div>
+          <ToastContainer />
         </section>
       </Container>
       <Footer />

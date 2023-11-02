@@ -1,12 +1,24 @@
 import { Link } from "react-router-dom";
+import dateFormat, { masks } from "dateformat";
 
-function PostCard({ image, category, title, body, date }) {
+function PostCard({ post, isAdminPage }) {
+  const altImage =
+    "https://dunistech.ng/images/EXECUTIVE%20CLASS@DUNISTECH.JPG";
+  const { image, body, createdAt, title, slug } = post;
+  const truncate = (str, max = 40) => {
+    const array = str.trim().split(" ");
+    const ellipsis = array.length > max ? "..." : "";
+
+    return array.slice(0, max).join(" ") + ellipsis;
+  };
+
   return (
-    <Link to={"post/id"} className="flex flex-col font-montserrat">
-      <div className="mb-2">
+    <Link to={`post/${slug}`} className="flex flex-col font-montserrat">
+      <div className="mb-2 ">
         <img
-          src="https://cdn.pixabay.com/photo/2023/10/06/02/49/flowers-8297333_1280.jpg"
+          src={image ? image.url : altImage}
           alt="post image"
+          className="max-h-[300px] min-w-full object-cover"
         />
       </div>
       {/* post card content */}
@@ -14,19 +26,13 @@ function PostCard({ image, category, title, body, date }) {
         {/* category */}
         <span className="text-gray-500 text-xs ">Kids coding</span>
         {/* title  */}
-        <h2 className="font-semibold mt-2">
-          Summer coding for kids to begin soon
-        </h2>
+        <h2 className="font-semibold mt-2">{title}</h2>
         {/* body */}
-        <p className="mb-2 text-[14px]">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto
-          dignissimos numquam pariatur saepe necessitatibus officiis, inventore
-          dolore cum laboriosam, eius delectus fugiat. Cupiditate quibusdam
-          magni tempora iure beatae, ab sunt, sapiente soluta?
-          Exercitationem.....
-        </p>
+        <p className="mb-2 text-[14px]">{truncate(body)}</p>
         {/* date */}
-        <span className="text-gray-500 text-xs ">Oct 10, 2023</span>
+        <span className="text-gray-500 text-xs ">
+          {dateFormat(createdAt, "longDate")}
+        </span>
       </div>
     </Link>
   );

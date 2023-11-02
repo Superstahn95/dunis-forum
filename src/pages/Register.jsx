@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import MyTextInput from "../components/Form/MyTextField";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -5,14 +6,34 @@ import Container from "../components/Container";
 import { Form, Formik } from "formik";
 import * as Yup from "Yup";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate, Navigate } from "react-router-dom";
+import { register, reset } from "../features/auth/authSlice";
+import toastifyConfig from "../utils/toastify";
+import { Bars } from "react-loader-spinner";
+import FeatureLoader from "../components/FeatureLoader";
 
 function Register() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { user, isSuccess, isLoading, isError, message, isAuthenticated } =
+    useSelector((state) => state.auth);
   const initialData = {
     name: "",
     email: "",
     password: "",
     confirmPassword: "",
   };
+  useEffect(() => {
+    if (isError) {
+      toast.error(message, toastifyConfig);
+    }
+    if (isSuccess || user) {
+      navigate("/", { replace: true });
+    }
+    dispatch(reset());
+  }, [isError, isSuccess, message, user, dispatch, navigate]);
   return (
     <>
       <Navbar />
@@ -25,11 +46,19 @@ function Register() {
             <Formik
               initialValues={initialData}
               validationSchema={Yup.object({
+                name: Yup.string()
+                  .min(3, "Must be greater than 3 characters")
+                  .required("Required"),
                 email: Yup.string().required("Required"),
-                password: Yup.string().required("Required"),
+                password: Yup.string()
+                  .min(6, "Password must be greater than 6 characters")
+                  .required("Required"),
+                confirmPassword: Yup.string()
+                  .min(6, "Must be greater than 6 characters")
+                  .required(),
               })}
               onSubmit={(values) => {
-                dispatch(login(values));
+                dispatch(register(values));
               }}
             >
               <Form>
@@ -71,10 +100,12 @@ function Register() {
                   >
                     Sign In
                   </button>
+                  {isLoading && <FeatureLoader text="Signing Up" />}
                 </div>
               </Form>
             </Formik>
           </div>
+          <ToastContainer />
         </section>
       </Container>
       <Footer />
