@@ -24,7 +24,7 @@ function PostCard({ post, isAdminPage }) {
       {/* post card content */}
       <div>
         {/* category */}
-        <span className="text-gray-500 text-xs ">Kids coding</span>
+        <span className="text-gray-500 text-xs ">DunisTech news</span>
         {/* title  */}
         <h2 className="font-semibold mt-2">{title}</h2>
         {/* body */}

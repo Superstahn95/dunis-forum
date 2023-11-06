@@ -6,7 +6,7 @@ import { useState } from "react";
 
 function PostForm({ initialData, onSubmit, text, thumbnail }) {
   const [image, setImage] = useState(thumbnail || null);
-  //   console.log(image);
+
   const handleImageChange = (event) => {
     const selectedImage = event.target.files[0];
     setImage(selectedImage);
@@ -25,13 +25,12 @@ function PostForm({ initialData, onSubmit, text, thumbnail }) {
           .min(50, "Post body must be greater than 50 characters"),
       })}
       onSubmit={(values) => {
-        console.log("about submitting");
         const formData = new FormData();
         formData.append("title", values.title);
         formData.append("slug", values.slug);
         formData.append("body", values.body);
         if (image) formData.append("image", image);
-        // console.log(formData);
+
         onSubmit(formData);
       }}
     >

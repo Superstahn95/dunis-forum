@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import authService from "./authService";
+import { setSessionExpired } from "../session/sessionSlice";
 
 //most likely the token being saved to localstorage
 // const user =JSON.parse(localStorage.getItem("user"))
@@ -34,7 +35,6 @@ export const login = createAsyncThunk("auth/login", async (user, thunkApi) => {
   try {
     return await authService.login(user);
   } catch (error) {
-    console.log(error);
     const message =
       (error.response && error.response.data && error.response.data.message) ||
       error.message ||
@@ -49,15 +49,17 @@ export const reAuthenticate = createAsyncThunk(
     try {
       return await authService.reAuthenticate(token);
     } catch (error) {
-      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
           error.response.data.message) ||
         error.message ||
         error.toString();
-
-      return thunkApi.rejectWithValue(message);
+      if (message === "Session expired") {
+        thunkApi.dispatch(setSessionExpired(true));
+      } else {
+        return thunkApi.rejectWithValue(message);
+      }
     }
   }
 );
@@ -67,7 +69,6 @@ export const updateUser = createAsyncThunk(
     try {
       return await authService.updateUser(data);
     } catch (error) {
-      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -86,7 +87,6 @@ export const changePassword = createAsyncThunk(
     try {
       return await authService.changePassword(data);
     } catch (error) {
-      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -119,7 +119,6 @@ export const authSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(register.fulfilled, (state, action) => {
-        console.log(action);
         state.isLoading = false;
         state.user = action.payload;
         state.isSuccess = true;
@@ -170,7 +169,6 @@ export const authSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(updateUser.fulfilled, (state, action) => {
-        console.log(action.payload);
         state.isLoading = false;
         state.user = action.payload.user;
         state.isSuccess = true;

@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import postListService from "./postListService";
+import { setSessionExpired } from "../session/sessionSlice";
 const initialState = {
   posts: null,
   postsIsLoading: false,
@@ -40,7 +41,11 @@ export const createPost = createAsyncThunk(
           error.response.data.message) ||
         error.message ||
         error.toString();
-      return thunkApi.rejectWithValue(message);
+      if (message === "Session expired") {
+        thunkApi.dispatch(setSessionExpired(true));
+      } else {
+        return thunkApi.rejectWithValue(message);
+      }
     }
   }
 );
@@ -59,7 +64,11 @@ export const deletePost = createAsyncThunk(
           error.response.data.message) ||
         error.message ||
         error.toString();
-      return thunkApi.rejectWithValue(message);
+      if (message === "Session expired") {
+        thunkApi.dispatch(setSessionExpired(true));
+      } else {
+        return thunkApi.rejectWithValue(message);
+      }
     }
   }
 );

@@ -32,7 +32,7 @@ function ChangeImageModal({ setShowImageModal, handleSubmit }) {
     }
     dispatch(reset());
   }, [isSuccess, isError, message, dispatch]);
-  console.log(image);
+
   return (
     <div className="fixed w-full z-[100] h-full top-0 left-0 bg-black/40 font-montserrat  flex justify-center ">
       <div className="bg-white h-fit w-[90%]  sm:w-[500px]  p-4 rounded-md mt-10 ">

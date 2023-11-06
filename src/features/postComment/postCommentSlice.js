@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import postCommentService from "./postCommentService";
+import { setSessionExpired } from "../session/sessionSlice";
 
 import {
   updatePostComment,
@@ -27,19 +28,20 @@ export const makeComment = createAsyncThunk(
       //       savedComment: response.savedComment,
       //     })
       //   );
-      console.log(response.savedComment);
       thunkApi.dispatch(updatePostComment(response.savedComment));
       return response.data;
     } catch (error) {
-      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
           error.response.data.message) ||
         error.message ||
         error.toString();
-      console.log(message);
-      return thunkApi.rejectWithValue(message);
+      if (message === "Session expired") {
+        thunkApi.dispatch(setSessionExpired(true));
+      } else {
+        return thunkApi.rejectWithValue(message);
+      }
     }
   }
 );
@@ -57,8 +59,11 @@ export const deleteComment = createAsyncThunk(
           error.response.data.message) ||
         error.message ||
         error.toString();
-      console.log(message);
-      return thunkApi.rejectWithValue(message);
+      if (message === "Session expired") {
+        thunkApi.dispatch(setSessionExpired(true));
+      } else {
+        return thunkApi.rejectWithValue(message);
+      }
     }
   }
 );
@@ -81,7 +86,6 @@ const postCommentSlice = createSlice({
         state.postCommentIsLoading = true;
       })
       .addCase(makeComment.fulfilled, (state, action) => {
-        console.log(action);
         state.postCommentIsLoading = false;
         state.comment = action.payload;
         state.postCommentIsSuccess = true;
@@ -96,7 +100,6 @@ const postCommentSlice = createSlice({
         state.postCommentIsLoading = true;
       })
       .addCase(deleteComment.fulfilled, (state, action) => {
-        console.log(action);
         state.postCommentIsLoading = false;
         state.comment = action.payload;
         state.postCommentIsSuccess = true;

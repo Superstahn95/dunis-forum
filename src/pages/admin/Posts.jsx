@@ -28,6 +28,7 @@ function Posts() {
   } = useSelector((state) => state.postList);
 
   useEffect(() => {
+    // dispatch(testConsole({ check: "This is working" }));
     if (!dataFetched) {
       dispatch(getAllPosts({ pageNo, limit, searchTerm: "" }));
       setDataFetched(true);

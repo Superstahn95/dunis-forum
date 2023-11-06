@@ -6,6 +6,8 @@ import postCommentReducer from "../features/postComment/postCommentSlice";
 import forumPostReducer from "../features/forumPost/forumPostSlice";
 import singleForumPostSliceReducer from "../features/singleForumPost/singleForumPostSlice";
 import usersReducer from "../features/users/usersSlice";
+import newsSubscriberReducer from "../features/newsSubscription/newsSubscriptionSlice";
+import sessionReducer from "../features/session/sessionSlice";
 
 const store = configureStore({
   reducer: {
@@ -16,6 +18,8 @@ const store = configureStore({
     forumPost: forumPostReducer,
     singleForumPost: singleForumPostSliceReducer,
     users: usersReducer,
+    subscriber: newsSubscriberReducer,
+    session: sessionReducer,
   },
 });
 

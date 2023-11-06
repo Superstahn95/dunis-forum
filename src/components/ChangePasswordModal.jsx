@@ -43,7 +43,7 @@ function ChangePasswordModal({ setShowPasswordModal, handleSubmit }) {
     }
     dispatch(reset());
   }, [isError, message, isSuccess]);
-  console.log(isError, message, isSuccess);
+
   return (
     <div className="fixed z-[100] w-full h-full top-0 left-0 bg-black/40 font-montserrat  flex justify-center ">
       <div className="bg-white h-fit w-[90%]  sm:w-[500px]  p-4 rounded-md mt-10 ">
@@ -53,7 +53,7 @@ function ChangePasswordModal({ setShowPasswordModal, handleSubmit }) {
           </h2>
           <div
             onClick={() => setShowPasswordModal(false)}
-            className="h-8 w-8 rounded-full flex items-center justify-center border cursor-pointer border-gray-700 dark:border-white"
+            className="h-8 w-8 rounded-full flex items-center justify-center border cursor-pointer border-gray-700 "
           >
             <XMarkIcon className="h-5 w-5 text-gray-700" />
           </div>

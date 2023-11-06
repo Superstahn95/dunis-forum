@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import usersService from "./usersService";
+import { setSessionExpired } from "../session/sessionSlice";
+
 const initialState = {
   users: null,
   usersIsLoading: false,
@@ -21,7 +23,12 @@ export const getAllUsers = createAsyncThunk(
           error.response.data.message) ||
         error.message ||
         error.toString();
-      thunkApi.rejectWithValue(message);
+
+      if (message === "Session expired") {
+        thunkApi.dispatch(setSessionExpired(true));
+      } else {
+        return thunkApi.rejectWithValue(message);
+      }
     }
   }
 );
@@ -39,7 +46,11 @@ export const authorizeUser = createAsyncThunk(
           error.response.data.message) ||
         error.message ||
         error.toString();
-      thunkApi.rejectWithValue(message);
+      if (message === "Session expired") {
+        thunkApi.dispatch(setSessionExpired(true));
+      } else {
+        return thunkApi.rejectWithValue(message);
+      }
     }
   }
 );
@@ -59,7 +70,11 @@ export const revokeUser = createAsyncThunk(
           error.response.data.message) ||
         error.message ||
         error.toString();
-      return thunkApi.rejectWithValue(message);
+      if (message === "Session expired") {
+        thunkApi.dispatch(setSessionExpired(true));
+      } else {
+        return thunkApi.rejectWithValue(message);
+      }
     }
   }
 );
@@ -76,7 +91,11 @@ export const deleteUser = createAsyncThunk(
           error.response.data.message) ||
         error.message ||
         error.toString();
-      return thunkApi.rejectWithValue(message);
+      if (message === "Session expired") {
+        thunkApi.dispatch(setSessionExpired(true));
+      } else {
+        return thunkApi.rejectWithValue(message);
+      }
     }
   }
 );
@@ -92,8 +111,12 @@ export const createUser = createAsyncThunk(
           error.response.data.message) ||
         error.message ||
         error.toString();
-      console.log(message);
-      return thunkApi.rejectWithValue(message);
+
+      if (message === "Session expired") {
+        thunkApi.dispatch(setSessionExpired(true));
+      } else {
+        return thunkApi.rejectWithValue(message);
+      }
     }
   }
 );
@@ -128,7 +151,6 @@ export const usersSlice = createSlice({
         state.usersErrorMessage = action.payload;
       })
       .addCase(authorizeUser.fulfilled, (state, action) => {
-        console.log(action);
         state.users = JSON.parse(
           JSON.stringify(
             state.users.map((user) =>
@@ -138,10 +160,12 @@ export const usersSlice = createSlice({
             )
           )
         );
-        state.usersSuccessMessage = action.payload.response;
+      })
+      .addCase(authorizeUser.rejected, (state, action) => {
+        state.usersIsError = true;
+        state.usersErrorMessage = action.payload;
       })
       .addCase(revokeUser.fulfilled, (state, action) => {
-        console.log(action);
         state.users = JSON.parse(
           JSON.stringify(
             state.users.map((user) =>
@@ -151,7 +175,6 @@ export const usersSlice = createSlice({
             )
           )
         );
-        state.usersSuccessMessage = action.payload.response;
       })
       .addCase(revokeUser.rejected, (state, action) => {
         state.usersIsError = true;
@@ -164,6 +187,10 @@ export const usersSlice = createSlice({
           )
         );
         state.usersSuccessMessage = action.payload.response;
+      })
+      .addCase(deleteUser.rejected, (state, action) => {
+        state.usersIsError = true;
+        state.usersErrorMessage = action.payload;
       })
       .addCase(createUser.pending, (state) => {
         state.usersIsLoading = true;

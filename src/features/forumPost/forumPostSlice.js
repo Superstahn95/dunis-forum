@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import forumPostService from "./forumPostService";
+import { setSessionExpired } from "../session/sessionSlice";
 const initialState = {
   forumPosts: null,
   forumPostsIsLoading: false,
@@ -21,25 +22,27 @@ export const getAllForumPosts = createAsyncThunk(
           error.response.data.message) ||
         error.message ||
         error.toString();
-      thunkApi.rejectWithValue(message);
+      return thunkApi.rejectWithValue(message);
     }
   }
 );
 export const createForumPost = createAsyncThunk(
   "forumPost/createForumPost",
   async (data, thunkApi) => {
-    console.log("we just hit the createForumSlice");
     try {
       return await forumPostService.createForumPost(data);
     } catch (error) {
-      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
           error.response.data.message) ||
         error.message ||
         error.toString();
-      return thunkApi.rejectWithValue(message);
+      if (message === "Session expired") {
+        thunkApi.dispatch(setSessionExpired(true));
+      } else {
+        return thunkApi.rejectWithValue(message);
+      }
     }
   }
 );
@@ -51,14 +54,17 @@ export const deleteForumPost = createAsyncThunk(
       const response = await forumPostService.deleteForumPost(id);
       return { response, id };
     } catch (error) {
-      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
           error.response.data.message) ||
         error.message ||
         error.toString();
-      return thunkApi.rejectWithValue(message);
+      if (message === "Session expired") {
+        thunkApi.dispatch(setSessionExpired(true));
+      } else {
+        return thunkApi.rejectWithValue(message);
+      }
     }
   }
 );
@@ -74,11 +80,6 @@ export const forumPostSlice = createSlice({
       state.forumPostsErrorMessage = "";
       state.forumPostCount = 0;
     },
-
-    testState: (state) => {
-      console.log(JSON.parse(JSON.stringify(state.forumPosts)));
-    },
-    addForumPost: (state, action) => {},
   },
   extraReducers: (builder) => {
     builder
@@ -92,8 +93,6 @@ export const forumPostSlice = createSlice({
         state.forumPostCount = action.payload.postCount;
       })
       .addCase(getAllForumPosts.rejected, (state, action) => {
-        console.log("forum posts failed");
-        console.log(action);
         state.forumPostsIsLoading = false;
         state.forumPostsIsError = true;
         state.forumPostsErrorMessage = action.payload;
@@ -112,7 +111,6 @@ export const forumPostSlice = createSlice({
         state.forumPostsErrorMessage = action.payload;
       })
       .addCase(deleteForumPost.fulfilled, (state, action) => {
-        console.log(action);
         // state.forumPostsIsLoading = false;
         const updatedForumPosts = JSON.parse(
           JSON.stringify(
@@ -123,13 +121,12 @@ export const forumPostSlice = createSlice({
         state.forumPostsIsSuccess = true;
       })
       .addCase(deleteForumPost.rejected, (state, action) => {
-        console.log(action);
         state.forumPostsIsError = true;
         state.forumPostsErrorMessage = action.payload;
       });
   },
 });
 
-export const { reset, testState } = forumPostSlice.actions;
+export const { reset } = forumPostSlice.actions;
 
 export default forumPostSlice.reducer;

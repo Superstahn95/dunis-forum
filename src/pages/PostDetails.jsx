@@ -78,7 +78,7 @@ function PostDetails() {
           <section className="py-10 font-montserrat">
             <div className=" w-full md:w-[50%] mx-auto my-7">
               {/* going to set up a category field in the post model */}
-              <span className="text-gray-500 text-xl ">Kids Coding</span>
+              <span className="text-gray-500 text-xl ">DunisTech news</span>
               <h1 className="font-semibold my-2 text-2xl md:text-5xl">
                 {" "}
                 {post?.title}
@@ -104,7 +104,7 @@ function PostDetails() {
                 ))}
                 <div className="flex items-center">
                   {!isAuthenticated ? (
-                    <p>
+                    <p className="text-sm">
                       <Link
                         to={"/register"}
                         className="text-blue-500 underline text-sm"

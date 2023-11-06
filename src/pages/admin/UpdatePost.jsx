@@ -24,7 +24,8 @@ function UpdatePost() {
   const { slug } = params;
   //when this loads, i want to fetch the data from maybe my backend or from the posts
   const [loading, setLoading] = useState(false);
-
+  const [dataFetched, setDataFetched] = useState(false);
+  const [postUpdated, setPostUpdated] = useState(false);
   const {
     post,
     postIsError,
@@ -38,16 +39,21 @@ function UpdatePost() {
   const handleSubmit = (values) => {
     // values.forEach((value) => console.log(value));
     const data = { values: values, id: post?._id };
-    console.log(data);
+
     setLoading(true);
-    dispatch(updatePost(data)).then(() => setLoading(false));
+    dispatch(updatePost(data)).then(() => {
+      setLoading(false);
+      setPostUpdated(true);
+    });
   };
   useEffect(() => {
     //if there are posts, we want to filter the posts and get the post
-    if (posts) {
-      dispatch(filterPostList({ posts, slug }));
-    } else {
-      dispatch(getSinglePost(slug));
+    if (!postUpdated) {
+      if (posts) {
+        dispatch(filterPostList({ posts, slug }));
+      } else {
+        dispatch(getSinglePost(slug));
+      }
     }
     if (postErrorMessage === "Post not found") {
       toast.error(postErrorMessage, toastifyConfig);
@@ -57,8 +63,23 @@ function UpdatePost() {
     if (postIsError) {
       toast.error(postErrorMessage, toastifyConfig);
     }
+    if (postIsSuccess) {
+      toast.success(postSuccessMessage, toastifyConfig);
+    }
     return () => dispatch(reset());
-  }, [posts, slug, postErrorMessage, postIsError, dispatch]);
+  }, [slug, postErrorMessage, postIsError, dispatch, postUpdated]);
+  //   useEffect(() => {
+  //     if (postsIsError) {
+  //       toast.error(postsErrorMessage, toastifyConfig);
+  //     }
+  //     if (postsSuccessMessage) {
+  //       toast.success(postsSuccessMessage, toastifyConfig);
+  //     }
+  //     return () => {
+  //       dispatch(reset());
+  //     };
+  //   }, [postsIsError, postsIsSuccess, postsSuccessMessage, postsErrorMessage]);
+  console.log(postIsSuccess);
   const initialData = {
     title: post?.title || "",
     slug: post?.slug || "",

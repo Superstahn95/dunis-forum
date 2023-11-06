@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import forumPostCommentService from "./forumPostCommentService";
-
 import {
   updateForumPostComment,
   removeForumPostComment,
 } from "../singleForumPost/singleForumPostSlice";
+import { setSessionExpired } from "../session/sessionSlice";
 
 const initialState = {
   forumComment: null,
@@ -27,19 +27,22 @@ export const makeForumComment = createAsyncThunk(
       //       savedComment: response.savedComment,
       //     })
       //   );
-      console.log(response.savedComment);
+
       thunkApi.dispatch(updateForumPostComment(response.savedComment));
       return response.data;
     } catch (error) {
-      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
           error.response.data.message) ||
         error.message ||
         error.toString();
-      console.log(message);
-      return thunkApi.rejectWithValue(message);
+
+      if (message === "Session expired") {
+        thunkApi.dispatch(setSessionExpired(true));
+      } else {
+        return thunkApi.rejectWithValue(message);
+      }
     }
   }
 );
@@ -57,8 +60,11 @@ export const deleteForumComment = createAsyncThunk(
           error.response.data.message) ||
         error.message ||
         error.toString();
-      console.log(message);
-      return thunkApi.rejectWithValue(message);
+      if (message === "Session expired") {
+        thunkApi.dispatch(setSessionExpired(true));
+      } else {
+        return thunkApi.rejectWithValue(message);
+      }
     }
   }
 );
@@ -81,7 +87,6 @@ const forumPostCommentSlice = createSlice({
         state.forumPostCommentIsLoading = true;
       })
       .addCase(makeForumComment.fulfilled, (state, action) => {
-        console.log(action);
         state.forumPostCommentIsLoading = false;
         state.forumComment = action.payload;
         state.forumPostCommentIsSuccess = true;
@@ -96,7 +101,6 @@ const forumPostCommentSlice = createSlice({
         state.forumPostCommentIsLoading = true;
       })
       .addCase(deleteForumComment.fulfilled, (state, action) => {
-        console.log(action);
         state.forumPostCommentIsLoading = false;
         state.forumComment = action.payload;
         state.forumPostCommentIsSuccess = true;

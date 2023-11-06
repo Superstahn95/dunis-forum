@@ -10,6 +10,7 @@ import {
   ArrowDownTrayIcon,
   BuildingOfficeIcon,
   UsersIcon,
+  InboxIcon,
 } from "@heroicons/react/24/solid";
 
 function AdminLayout() {
@@ -58,6 +59,11 @@ function AdminLayout() {
       link: "Manage Profile",
       icon: <UserIcon className="h-5 w-5" />,
       to: "/admin/manage-profile",
+    },
+    {
+      link: "Subscribers",
+      icon: <InboxIcon className="h-5 w-5" />,
+      to: "/admin/subscribers",
     },
   ];
 

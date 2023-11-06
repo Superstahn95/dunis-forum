@@ -100,7 +100,7 @@ function Forum() {
               {forumPosts?.length < 1 ? (
                 <section className="min-h-[50vh] flex items-center justify-center">
                   <div className="text-white font-montserrat text-center text-xl md:text-3xl">
-                    There are currently no posts in this forum
+                    There are currently no posts on this forum
                   </div>
                 </section>
               ) : (

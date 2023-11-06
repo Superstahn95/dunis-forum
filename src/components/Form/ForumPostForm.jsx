@@ -46,7 +46,7 @@ function ForumPostForm({
     } else {
       data = { text };
     }
-    // console.log(data);
+
     onSubmit(data);
   };
 

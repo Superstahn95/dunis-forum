@@ -9,6 +9,7 @@ import UpdatePost from "../../pages/admin/UpdatePost";
 import Users from "../../pages/admin/Users";
 import AdminLayout from "./AdminLayout";
 import AdminManageProfile from "../../pages/admin/AdminManageProfile";
+import Subscription from "../../pages/admin/Subscription";
 
 function AdminRoutes() {
   // Replace with your user role check logic
@@ -34,6 +35,7 @@ function AdminRoutes() {
         <Route path="forum-posts" element={<ForumPosts />} />
         <Route path="create-profile" element={<CreateProfile />} />
         <Route path="manage-profile" element={<AdminManageProfile />} />
+        <Route path="subscribers" element={<Subscription />} />
       </Route>
     </Routes>
   );

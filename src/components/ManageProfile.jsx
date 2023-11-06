@@ -12,7 +12,7 @@ function ManageProfile({ user, handleSubmit }) {
   const { isSuccess, isError, message, isLoading } = useSelector(
     (state) => state.auth
   );
-  console.log(isSuccess, message);
+
   const [userDetails, setUserDetails] = useState({
     name: user?.name,
     email: user?.email,
@@ -30,7 +30,6 @@ function ManageProfile({ user, handleSubmit }) {
       toast.error(message, toastifyConfig);
     }
     if (isSuccess) {
-      console.log("user edited");
       toast.success(message, toastifyConfig);
     }
     dispatch(reset());

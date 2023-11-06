@@ -21,10 +21,12 @@ import CreateProfile from "./pages/admin/CreateProfile";
 import AdminRoutes from "./components/Admin/AdminRoutes";
 import UserProfile from "./pages/UserProfile";
 import Page404 from "./pages/Page404";
+import SessionExpiredModal from "./components/SessionExpiredModal";
 
 function App() {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
+  const { isSessionExpired } = useSelector((state) => state.session);
   const [appLoading, setAppLoading] = useState(true);
   useEffect(() => {
     const token = localStorage.getItem("userToken");
@@ -47,20 +49,21 @@ function App() {
     return <Overlayloader />;
   }
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/post/:slug" element={<PostDetails />} />
-      <Route path="/forum" element={<Forum />} />
-      {user && user.role === "user" && (
-        <Route path="/profile" element={<UserProfile />} />
-      )}
+    <>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/post/:slug" element={<PostDetails />} />
+        <Route path="/forum" element={<Forum />} />
+        {user && user.role === "user" && (
+          <Route path="/profile" element={<UserProfile />} />
+        )}
 
-      <Route path="/forum/:id" element={<ForumPostDetails />} />
-      {/* to be protected for admin only */}
-      {/* <Route path="/admin" element={<AdminLayout />}>
+        <Route path="/forum/:id" element={<ForumPostDetails />} />
+        {/* to be protected for admin only */}
+        {/* <Route path="/admin" element={<AdminLayout />}>
         <Route path="posts" element={<Posts />} />
 
         <Route path="posts/create" element={<CreatePost />} />
@@ -69,13 +72,15 @@ function App() {
         <Route path="forum-posts" element={<ForumPosts />} />
         <Route path="create-profile" element={<CreateProfile />} />
       </Route> */}
-      {/* The * because we will have things nested */}
-      {user && user.role === "admin" && (
-        <Route path="/admin/*" element={<AdminRoutes />} />
-      )}
+        {/* The * because we will have things nested */}
+        {user && user.role === "admin" && (
+          <Route path="/admin/*" element={<AdminRoutes />} />
+        )}
 
-      <Route path="*" element={<Page404 />} />
-    </Routes>
+        <Route path="*" element={<Page404 />} />
+      </Routes>
+      {isSessionExpired && <SessionExpiredModal />}
+    </>
   );
 }
 

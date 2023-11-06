@@ -5,8 +5,7 @@ import { logout } from "../features/auth/authSlice";
 
 function Navbar() {
   const dispatch = useDispatch();
-  const { user, isSuccess, isLoading, isError, message, isAuthenticated } =
-    useSelector((state) => state.auth);
+  const { user, isAuthenticated } = useSelector((state) => state.auth);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -68,7 +67,7 @@ function Navbar() {
                 >
                   Forum
                 </NavLink>
-                {user.role === "admin" || user.role === "juniorAdmin" ? (
+                {user?.role === "admin" || user?.role === "juniorAdmin" ? (
                   <NavLink
                     to="/admin/posts"
                     className="text-white cursor-pointer text-xs md:text-lg hover:text-orange-500"
