@@ -1,7 +1,7 @@
 import MyTextInput from "./MyTextField";
 import MyTextArea from "./MyTextArea";
 import { Form, Formik } from "formik";
-import * as Yup from "Yup";
+import * as Yup from "yup";
 import { useState } from "react";
 
 function PostForm({ initialData, onSubmit, text, thumbnail }) {

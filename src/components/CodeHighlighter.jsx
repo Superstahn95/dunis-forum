@@ -1,5 +1,5 @@
 import SyntaxHighlighter from "react-syntax-highlighter";
-import { docco, darcula } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import { darcula } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { AiOutlineCopy } from "react-icons/ai";
 import { useState } from "react";
 import { MdOutlineDone } from "react-icons/md";

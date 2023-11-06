@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../features/auth/authSlice";
-import { XMarkIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router-dom";
 import { setSessionExpired } from "../features/session/sessionSlice";
 

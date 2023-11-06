@@ -1,6 +1,5 @@
-import MyTextInput from "./MyTextField";
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 function ForumPostForm({

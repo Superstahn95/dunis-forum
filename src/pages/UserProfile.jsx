@@ -3,7 +3,6 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Container from "../components/Container";
 import { useSelector, useDispatch } from "react-redux";
-import { AiFillCamera, AiOutlineUser } from "react-icons/ai";
 import ProfileDetails from "../components/ProfileDetails";
 import ManageProfile from "../components/ManageProfile";
 import ManagePassword from "../components/ManagePassword";

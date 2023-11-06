@@ -1,7 +1,7 @@
 import CodeHighlighter from "../CodeHighlighter";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import dateFormat from "dateformat";
 
 function ForumPostViewModal({ setShowModal, id }) {

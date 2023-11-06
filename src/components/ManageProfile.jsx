@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { AiOutlineUser } from "react-icons/ai";
 import { MdDashboard } from "react-icons/md";
 import { useSelector, useDispatch } from "react-redux";
 import FeatureLoader from "./FeatureLoader";

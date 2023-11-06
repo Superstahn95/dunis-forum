@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { BiSolidTrashAlt, BiMessageAltMinus } from "react-icons/bi";
 import { AiFillEdit } from "react-icons/ai";
 import dateFormat from "dateformat";
 import { TrashIcon } from "@heroicons/react/24/solid";
