@@ -1,7 +1,7 @@
 import MyTextInput from "../../components/Form/MyTextField";
 import MySelectField from "../../components/Form/MySelectField";
 import { Form, Formik } from "formik";
-import * as Yup from "Yup";
+import * as Yup from "yup";
 import { ToastContainer, toast } from "react-toastify";
 import toastifyConfig from "../../utils/toastify";
 import { useSelector, useDispatch } from "react-redux";
