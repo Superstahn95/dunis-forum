@@ -1,7 +1,7 @@
 import React, { useEffect, Fragment, useState } from "react";
 import { Outlet } from "react-router-dom";
 import TopBar from "./TopBar";
-import SideBar from "./SideBar";
+import SideBar from "./SIdeBar";
 import { Transition } from "@headlessui/react";
 import {
   HomeIcon,
