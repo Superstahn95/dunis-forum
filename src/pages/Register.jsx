@@ -11,7 +11,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, Navigate } from "react-router-dom";
 import { register, reset } from "../features/auth/authSlice";
 import toastifyConfig from "../utils/toastify";
-import { Bars } from "react-loader-spinner";
+
 import FeatureLoader from "../components/FeatureLoader";
 
 function Register() {

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Container from "../../components/Container";
 import { useSelector, useDispatch } from "react-redux";
 import ProfileDetails from "../../components/ProfileDetails";
 import ManageProfile from "../../components/ManageProfile";

@@ -28,13 +28,9 @@ function ForumPostDetails() {
   const dispatch = useDispatch();
   const [showForm, setShowForm] = useState(false);
   const [loading, setLoading] = useState(false);
-  const {
-    forumPost,
-    forumPostIsLoading,
-    forumPostIsError,
-    forumPostIsSuccess,
-    forumPostErrorMessage,
-  } = useSelector((state) => state.singleForumPost);
+  const { forumPost, forumPostIsLoading } = useSelector(
+    (state) => state.singleForumPost
+  );
   const { forumPosts } = useSelector((state) => state.forumPost);
   useEffect(() => {
     //if there are posts, we want to filter the posts and get the post
