@@ -37,12 +37,12 @@ function ChangeImageModal({ setShowImageModal, handleSubmit }) {
     <div className="fixed w-full z-[100] h-full top-0 left-0 bg-black/40 font-montserrat  flex justify-center ">
       <div className="bg-white h-fit w-[90%]  sm:w-[500px]  p-4 rounded-md mt-10 ">
         <div className="border-b border-gray-400 flex items-center justify-between">
-          <h2 className="text-gray-700 text-xl pb-2 font-bold dark:text-white">
+          <h2 className="text-gray-700 text-xl pb-2 font-bold ">
             Change Profile Picture
           </h2>
           <div
             onClick={() => setShowImageModal(false)}
-            className="h-8 w-8 rounded-full flex items-center justify-center border cursor-pointer border-gray-700 dark:border-white"
+            className="h-8 w-8 rounded-full flex items-center justify-center border cursor-pointer border-gray-700 "
           >
             <XMarkIcon className="h-5 w-5 text-gray-700" />
           </div>

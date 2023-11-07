@@ -30,7 +30,7 @@ function TopBar({ showNav, setShowNav }) {
     >
       <div className="pl-4 md:pl-16 flex justify-between items-center w-full ">
         <Bars3CenterLeftIcon
-          className="h-8 w-8 text-gray-700 cursor-pointer dark:text-white"
+          className="h-8 w-8 text-gray-700 cursor-pointer "
           onClick={() => setShowNav(!showNav)}
         />
         <div className="flex space-x-1  items-center pr-4 md:pr-16">

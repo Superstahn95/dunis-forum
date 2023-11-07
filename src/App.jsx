@@ -12,20 +12,16 @@ import AdminLayout from "./components/Admin/AdminLayout";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { reAuthenticate } from "./features/auth/authSlice";
-import Posts from "./pages/admin/Posts";
-import CreatePost from "./pages/admin/CreatePost";
-import Users from "./pages/admin/Users";
-import ForumPosts from "./pages/admin/ForumPosts";
-import UpdatePost from "./pages/admin/UpdatePost";
-import CreateProfile from "./pages/admin/CreateProfile";
 import AdminRoutes from "./components/Admin/AdminRoutes";
 import UserProfile from "./pages/UserProfile";
 import Page404 from "./pages/Page404";
 import SessionExpiredModal from "./components/SessionExpiredModal";
+import UserRoute from "./components/UserRoute";
 
 function App() {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth);
+  const { user, isAuthenticated } = useSelector((state) => state.auth);
+
   const { isSessionExpired } = useSelector((state) => state.session);
   const [appLoading, setAppLoading] = useState(true);
   useEffect(() => {
@@ -58,7 +54,7 @@ function App() {
         <Route path="/post/:slug" element={<PostDetails />} />
         <Route path="/forum" element={<Forum />} />
         {user && user.role === "user" && (
-          <Route path="/profile" element={<UserProfile />} />
+          <Route path="/profile" element={<UserRoute />} />
         )}
 
         <Route path="/forum/:id" element={<ForumPostDetails />} />

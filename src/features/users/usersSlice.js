@@ -58,12 +58,10 @@ export const authorizeUser = createAsyncThunk(
 export const revokeUser = createAsyncThunk(
   "users/revokeUser",
   async (id, thunkApi) => {
-    console.log("in the revoke asyncThunk action");
     try {
       const response = await usersService.revokeUser(id);
       return { response, id };
     } catch (error) {
-      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -196,13 +194,11 @@ export const usersSlice = createSlice({
         state.usersIsLoading = true;
       })
       .addCase(createUser.fulfilled, (state, action) => {
-        console.log(action);
         state.usersIsLoading = false;
         state.usersIsSuccess = true;
         state.usersSuccessMessage = action.payload;
       })
       .addCase(createUser.rejected, (state, action) => {
-        console.log(action);
         state.usersIsLoading = false;
         state.usersErrorMessage = action.payload;
         state.usersIsError = true;

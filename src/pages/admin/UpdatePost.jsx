@@ -76,7 +76,7 @@ function UpdatePost() {
   //       dispatch(reset());
   //     };
   //   }, [postsIsError, postsIsSuccess, postsSuccessMessage, postsErrorMessage]);
-  console.log(postIsSuccess);
+
   const initialData = {
     title: post?.title || "",
     slug: post?.slug || "",

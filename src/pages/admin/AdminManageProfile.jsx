@@ -19,7 +19,6 @@ function AdminManageProfile() {
   };
 
   const handleUserPasswordChange = (data) => {
-    console.log(data);
     dispatch(changePassword(data));
   };
 

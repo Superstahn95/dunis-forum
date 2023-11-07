@@ -109,7 +109,7 @@ function ForumPosts() {
       {forumPostsIsLoading ? (
         <FeatureLoader text="Fetching Forum Posts" />
       ) : forumPosts ? (
-        <div className="grid col-1 bg-white shadow-sm dark:bg-slate-800 font-montserrat mt-8">
+        <div className="grid col-1 bg-white shadow-sm  font-montserrat mt-8">
           <Table tableHeaders={columns} tableDetails={forumPosts} />
         </div>
       ) : (

@@ -32,7 +32,6 @@ const authorizeUser = async (id) => {
 };
 
 const revokeUser = async (id) => {
-  console.log("In our users service");
   const token = localStorage.getItem("userToken");
   if (!token) {
     return console.log("No token"); //look for a better way of handling this error

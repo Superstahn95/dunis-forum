@@ -51,7 +51,7 @@ function ForumPostForm({
 
   return (
     <div
-      className={`w-full sm:w-[600px] rounded-t-[30px] rounded-md bg-green-800 fixed bottom-0 left-[50%] -translate-x-1/2 p-3 font-montserrat ${
+      className={`w-full sm:w-[600px] rounded-t-[30px] rounded-md bg-green-900 border border-white shadow-xl fixed bottom-0 left-[50%] -translate-x-1/2 p-3 font-montserrat ${
         isCodeSnippet ? "h-[400px]" : "h-[300px]"
       }`}
     >
@@ -76,7 +76,7 @@ function ForumPostForm({
         </div>
       ) : !user?.authorized && user.role !== "admin" ? (
         <div className="flex flex-col items-center mt-10">
-          <p className="text-sm bg-red-400 text-white p-1 rounded-md">
+          <p className="text-sm bg-red-500 text-white p-1 rounded-md">
             Account not yet authorized. kindly wait till you are authorized by
             the admin{" "}
             {isCommentPage

@@ -68,7 +68,7 @@ function AdminLayout() {
   ];
 
   return (
-    <div className="bg-gray-200 min-h-screen dark:bg-slate-900 ">
+    <div className="bg-gray-200 min-h-screen  ">
       <TopBar showNav={showNav} setShowNav={setShowNav} />
       <Transition
         as={Fragment}

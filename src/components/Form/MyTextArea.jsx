@@ -8,7 +8,7 @@ function MyTextArea({ label, directive, ...props }) {
         {label}
       </label>
       <textarea name="" id="" cols="30" rows="10" {...field} {...props}>
-        <p className="text-sm dark:text-white">{directive}</p>
+        <p className="text-sm ">{directive}</p>
         {meta.touched && meta.error ? (
           <div className="text-red-500  text-xs">{meta.error}</div>
         ) : null}

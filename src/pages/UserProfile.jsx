@@ -23,7 +23,6 @@ function UserProfile() {
   };
 
   const handleUserPasswordChange = (data) => {
-    console.log(data);
     dispatch(changePassword(data));
   };
   useEffect(() => {

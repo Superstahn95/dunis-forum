@@ -11,10 +11,7 @@ const filterPostList = (data) => {
 
 const updatePost = async (data) => {
   const { id, values } = data;
-  console.log(id);
-  //   console.log(values);
-  values.forEach((value) => console.log(value));
-  console.log("we hit ths functionality");
+
   const token = localStorage.getItem("userToken");
   if (!token) {
     return console.log("No token found, hence not authorized");
@@ -25,7 +22,7 @@ const updatePost = async (data) => {
       //   "Content-Type": "multipart/form-data",
     },
   };
-  console.log("about making a call to our backend");
+
   const response = await client.patch(`post/${id}`, values, config);
   return response.data.message;
 };

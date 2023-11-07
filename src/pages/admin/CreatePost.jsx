@@ -29,13 +29,10 @@ function CreatePost({}) {
     body: "",
   };
   const handleSubmit = (values) => {
-    // values.forEach((value) => console.log(value));
-    console.log(values);
     setLoading(true);
     dispatch(createPost(values)).then(() => setLoading(false));
-    console.log(values);
   };
-  console.log(postsIsSuccess);
+
   useEffect(() => {
     if (postsIsError) {
       toast.error(postsErrorMessage, toastifyConfig);

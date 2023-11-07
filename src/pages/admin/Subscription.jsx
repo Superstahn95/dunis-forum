@@ -21,6 +21,7 @@ function Subscription() {
     subscriberIsError,
     subscriberIsLoading,
     subscriberErrorMessage,
+    subscriberIsSuccess,
   } = useSelector((state) => state.subscriber);
   const handleDelete = (id) => {
     const newLoadingRows = { ...loadingRows };
@@ -62,20 +63,22 @@ function Subscription() {
     if (subscriberIsError) {
       toast.error(subscriberErrorMessage, toastifyConfig);
     }
-    const resetTimeout = setTimeout(() => {
-      dispatch(reset());
-    }, 500);
-    return () => {
-      clearTimeout(resetTimeout);
-    };
+    // const resetTimeout = setTimeout(() => {
+    //   dispatch(reset());
+    // }, 500);
+    // return () => {
+    //   clearTimeout(resetTimeout);
+    // };
+    dispatch(reset());
   }, [subscriberIsError, dispatch, subscriberErrorMessage, dataFetched]);
+  console.log(subscriberIsSuccess);
   return (
     <div className="font-montserrat">
       <h2 className=" font-bold text-2xl">Newsletter Subscribers Collection</h2>
       {subscriberIsLoading ? (
         <FeatureLoader text="Fetching Newsletter Subscribers" />
       ) : subscribers ? (
-        <div className="grid col-1 bg-white shadow-sm dark:bg-slate-800 font-montserrat mt-8">
+        <div className="grid col-1 bg-white shadow-sm  font-montserrat mt-8">
           <Table tableHeaders={columns} tableDetails={subscribers} />
         </div>
       ) : (

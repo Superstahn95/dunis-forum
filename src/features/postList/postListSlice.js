@@ -34,7 +34,6 @@ export const createPost = createAsyncThunk(
     try {
       return await postListService.createPost(data);
     } catch (error) {
-      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -57,7 +56,6 @@ export const deletePost = createAsyncThunk(
       const response = await postListService.deletePost(id);
       return { response, id };
     } catch (error) {
-      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -86,12 +84,9 @@ export const postListSlice = createSlice({
       state.postsSuccessMessage = "";
     },
     addCommentToPost: (state, action) => {
-      console.log(action.payload);
-
       const { postId, savedComment } = action.payload;
       const updatedPosts = JSON.parse(JSON.stringify(state.posts)).map(
         (post) => {
-          console.log(post);
           if (post._id === postId) {
             return {
               ...post,
@@ -101,15 +96,13 @@ export const postListSlice = createSlice({
           return post;
         }
       );
-      console.log(updatedPosts);
+
       state.posts = updatedPosts;
     },
     testState: (state) => {
       console.log(JSON.parse(JSON.stringify(state.posts)));
     },
     removePost: (state, action) => {
-      console.log("we just hit here");
-      console.log(action.payload);
       const updatedPosts = JSON.parse(JSON.stringify(state.posts)).filter(
         (post) => post._id !== action.payload
       );
@@ -141,7 +134,6 @@ export const postListSlice = createSlice({
         state.posts = updatedPosts;
       })
       .addCase(deletePost.rejected, (state, action) => {
-        console.log(action);
         state.postsIsError = true;
         state.postsErrorMessage = action.payload;
       })

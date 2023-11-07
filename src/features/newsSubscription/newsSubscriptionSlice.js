@@ -17,7 +17,6 @@ export const createSubscriber = createAsyncThunk(
     try {
       return await newsSubscriptionService.createSubscriber(data);
     } catch (error) {
-      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -36,7 +35,6 @@ export const deleteSubscriber = createAsyncThunk(
       const response = await newsSubscriptionService.deleteSubscriber(id);
       return { response, id };
     } catch (error) {
-      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -94,7 +92,7 @@ export const newsSubscriberSlice = createSlice({
       .addCase(getAllSubscribers.fulfilled, (state, action) => {
         state.subscriberIsLoading = false;
         state.subscribers = action.payload.subscribers;
-        state.subscriberIsSuccess = true;
+        // state.subscriberIsSuccess = true;
       })
       .addCase(getAllSubscribers.rejected, (state, action) => {
         state.subscriberIsLoading = false;
@@ -109,7 +107,6 @@ export const newsSubscriberSlice = createSlice({
         state.subscribers = updatedSubscribers;
       })
       .addCase(deleteSubscriber.rejected, (state, action) => {
-        console.log(action);
         state.subscriberIsError = true;
         state.subscriberErrorMessage = action.payload;
       })

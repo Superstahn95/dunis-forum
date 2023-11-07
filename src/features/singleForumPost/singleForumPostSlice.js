@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import singleForumPostService from "./singleForumPostService";
+import { setSessionExpired } from "../session/sessionSlice";
 const initialState = {
   forumPost: null,
   forumPostIsLoading: false,
@@ -43,15 +44,11 @@ export const singleForumPostSlice = createSlice({
       state.forumPostErrorMessage = "";
     },
     updateForumPostComment: (state, action) => {
-      console.log("we are pushing this into the array");
       JSON.parse(
         JSON.stringify(state.forumPost.forumComments.unshift(action.payload))
       );
-      console.log(JSON.parse(JSON.stringify(state.forumPost)));
     },
     removeForumPostComment: (state, action) => {
-      console.log(action);
-
       state.forumPost.comments = JSON.parse(
         JSON.stringify(
           state.forumPost.forumComments.filter(

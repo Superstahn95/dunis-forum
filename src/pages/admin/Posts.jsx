@@ -26,6 +26,15 @@ function Posts() {
     postCount,
     postsSuccessMessage,
   } = useSelector((state) => state.postList);
+  const {
+    subscriberIsError,
+    subscriberIsLoading,
+    subscriberErrorMessage,
+    subscriberIsSuccess,
+    subscriberSuccessMessage,
+  } = useSelector((state) => state.subscriber);
+
+  console.log(subscriberIsSuccess);
 
   useEffect(() => {
     // dispatch(testConsole({ check: "This is working" }));

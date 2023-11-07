@@ -49,7 +49,7 @@ function CreateProfile() {
     usersSuccessMessage,
     dispatch,
   ]);
-  console.log(usersIsError, usersErrorMessage);
+
   return (
     <div className="font-montserrat">
       <h2 className="font-bold text-2xl text-gray-700 text-center">

@@ -32,6 +32,13 @@ function Footer() {
       setLoading(false);
     });
   };
+  // console.log(
+  //   subscriberIsError,
+  //   subscriberIsLoading,
+  //   subscriberErrorMessage,
+  //   subscriberIsSuccess,
+  //   subscriberSuccessMessage
+  // );
   useEffect(() => {
     if (subscriberIsError) {
       toast.error(subscriberErrorMessage, toastifyConfig);
