@@ -83,30 +83,31 @@ function Footer() {
             </button>
           </form>
           {/* div holding to our website */}
-          <div className="text-white flex flex-col items-center my-7">
-            <h3>
+          <div className="text-white flex flex-col items-start  sm:items-center my-7">
+            <h3 className="font-bold">
               Care to enroll, know more about us or log into our student's
               portal??
             </h3>
-            <div className="flex items-center space-x-1 mt-4">
+            <p className="mt-2">Click on any of the below links</p>
+            <div className="flex flex-col items-start space-y-1 sm:flex-row sm:items-center sm:space-y-0 sm:space-x-1 mt-4  ">
               <a
                 href="https://trainee.dunistech.ng"
                 target="_blank"
-                className="bg-white text-orange-500 rounded-md p-2"
+                className=" text-orange-400 rounded-md p-2"
               >
                 Go to Portal
               </a>
               <a
                 href="https://dunistech.ng"
                 target="_blank"
-                className="bg-white text-orange-500 rounded-md p-2"
+                className=" text-orange-400 rounded-md p-2"
               >
                 Visit Website
               </a>
               <a
                 href="https://dunistech.ng/teens/"
                 target="_blank"
-                className="bg-white text-orange-500 rounded-md p-2"
+                className=" text-orange-400 rounded-md p-2"
               >
                 Kids/Teens Coding
               </a>
