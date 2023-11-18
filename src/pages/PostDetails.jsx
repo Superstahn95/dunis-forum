@@ -57,7 +57,7 @@ function PostDetails() {
       alert("You cannot place an empty comment");
     }
   };
-  console.log(user);
+
   return (
     <>
       <Navbar />

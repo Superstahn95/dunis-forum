@@ -28,7 +28,7 @@ const getSubscribers = async () => {
       authorization: `Bearer ${token}`,
     },
   };
-  console.log(token, config);
+
   const response = await client.get(`newsletter`, config);
   return response.data;
 };

@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import Container from "./Container";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../features/auth/authSlice";
+import dunisLogo from "../assets/images/dunislogowhite.jpg";
 
 function Navbar() {
   const dispatch = useDispatch();
@@ -15,7 +16,12 @@ function Navbar() {
       <Container>
         <div className="flex items-center justify-between">
           <NavLink to={"/"} className="text-sm md:text-xl text-white font-bold">
-            DunisTech
+            {/* DunisTech */}
+            <img
+              src={dunisLogo}
+              alt="logo"
+              className="w-[70px] h-[30px] md:w-[100px] md:h-[50px]"
+            />
           </NavLink>
           {/* authentication and dashboard links */}
           <div className="flex items-center space-x-1 md:space-x-3">
